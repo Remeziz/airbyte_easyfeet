@@ -1,0 +1,22 @@
+{{ config(
+    unique_key = '_airbyte_ab_id',
+    schema = "main",
+    tags = [ "top-level" ]
+) }}
+-- Final base SQL model
+-- depends_on: {{ ref('na_sponsored_products_report_stream_ab3') }}
+select
+    metric,
+    profileid,
+    updatedat,
+    recordtype,
+    reportdate,
+    _airbyte_ab_id,
+    _airbyte_emitted_at,
+    {{ current_timestamp() }} as _airbyte_normalized_at,
+    _airbyte_na_sponsored___report_stream_hashid
+from {{ ref('na_sponsored_products_report_stream_ab3') }}
+-- na_sponsored_products_report_stream from {{ source('main', '_airbyte_raw_na_spons__roducts_report_stream') }}
+where 1 = 1
+{{ incremental_clause('_airbyte_emitted_at', this) }}
+
