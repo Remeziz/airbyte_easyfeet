@@ -10,7 +10,7 @@ normalize:
       password: LptnxTmNWvWo_pjP7FaH
       port: 3306
       schema: main
-      server: localhost
+      server: airbyte.easyfeet.store
       type: mysql
       username: airbyte
   target: prod
