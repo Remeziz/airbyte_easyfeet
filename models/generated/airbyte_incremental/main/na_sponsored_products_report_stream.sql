@@ -6,7 +6,13 @@
 -- Final base SQL model
 -- depends_on: {{ ref('na_sponsored_products_report_stream_ab3') }}
 select
-    metric,
+    replace(json_extract(metric, '$."sku"') , '"', '') as sku,
+    replace(json_extract(metric, '$."asin"') , '"', '') as asin,
+    (replace(json_extract(metric, '$."cost"') , '"', '')) as cost,
+    (replace(json_extract(metric, '$."impressions"') , '"', '')) as impressions,
+    (replace(json_extract(metric, '$."clicks"') , '"', '')) as clicks,
+    (replace(json_extract(metric, '$."attributedSales1d"') , '"', '')) as sales,
+    (replace(json_extract(metric, '$."attributedUnitsOrdered1d"') , '"', '')) as orders,,
     profileid,
     updatedat,
     recordtype,
