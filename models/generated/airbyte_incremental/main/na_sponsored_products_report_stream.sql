@@ -5,16 +5,16 @@
 ) }}
 -- Final base SQL model
 -- depends_on: {{ ref('na_sponsored_products_report_stream_ab3') }}
-SELECT
- STR_TO_DATE(reportdate, '%Y%m%d') as date,
-        recordtype,
-        replace(json_extract(metric, '$."sku"') , '"', '') as sku,
-        replace(json_extract(metric, '$."asin"') , '"', '') as asin,
-        sum(replace(json_extract(metric, '$."cost"') , '"', '')) as cost,
-        sum(replace(json_extract(metric, '$."impressions"') , '"', '')) as impressions,
-        sum(replace(json_extract(metric, '$."clicks"') , '"', '')) as clicks,
-        sum(replace(json_extract(metric, '$."attributedSales1d"') , '"', '')) as sales,
-        sum(replace(json_extract(metric, '$."attributedUnitsOrdered1d"') , '"', '')) as orders
+select
+    metric,
+    profileid,
+    updatedat,
+    recordtype,
+    reportdate,
+    _airbyte_ab_id,
+    _airbyte_emitted_at,
+    {{ current_timestamp() }} as _airbyte_normalized_at,
+    _airbyte_na_sponsored___report_stream_hashid
 from {{ ref('na_sponsored_products_report_stream_ab3') }}
 -- na_sponsored_products_report_stream from {{ source('main', '_airbyte_raw_na_spons__roducts_report_stream') }}
 where 1 = 1
