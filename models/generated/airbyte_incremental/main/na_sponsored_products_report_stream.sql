@@ -12,7 +12,7 @@ select
     (replace(json_extract(metric, '$."impressions"') , '"', '')) as impressions,
     (replace(json_extract(metric, '$."clicks"') , '"', '')) as clicks,
     (replace(json_extract(metric, '$."attributedSales1d"') , '"', '')) as sales,
-    (replace(json_extract(metric, '$."attributedUnitsOrdered1d"') , '"', '')) as orders,,
+    (replace(json_extract(metric, '$."attributedUnitsOrdered1d"') , '"', '')) as orders,
     profileid,
     updatedat,
     recordtype,
